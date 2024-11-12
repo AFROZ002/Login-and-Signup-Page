@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Software - User Access Management</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div th:replace="layout/main :: navbar"></div>
+
+<div class="container">
+    <div class="card">
+        <h2>Create New Software</h2>
+
+        <form th:action="@{/software/create}" method="post" th:object="${software}">
+            <div class="form-group">
+                <label for="name">Software Name</label>
+                <input type="text" th:field="*{name}" required class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea th:field="*{description}" class="form-control" rows="3"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Access Levels</label>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="accessLevels" value="READ"> Read
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="accessLevels" value="WRITE"> Write
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="accessLevels" value="ADMIN"> Admin
+                    </label>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Create Software</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

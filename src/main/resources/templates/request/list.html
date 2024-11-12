@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/main :: head">
+    <title>Access Requests - User Access Management</title>
+</head>
+<body>
+<div th:replace="layout/main :: navbar"></div>
+
+<div class="container">
+    <div class="card">
+        <h2>Pending Access Requests</h2>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>User</th>
+                <th>Software</th>
+                <th>Access Type</th>
+                <th>Reason</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="request : ${requests}">
+                <td th:text="${request.user.username}"></td>
+                <td th:text="${request.software.name}"></td>
+                <td th:text="${request.accessType}"></td>
+                <td th:text="${request.reason}"></td>
+                <td th:text="${request.status}"></td>
+                <td>
+                    <form th:if="${request.status == 'PENDING'}"
+                          th:action="@{/request/{id}/approve(id=${request.id})}"
+                          method="post" style="display: inline;">
+                        <button type="submit" class="btn btn-sm btn-success">Approve</button>
+                    </form>
+                    <form th:if="${request.status == 'PENDING'}"
+                          th:action="@{/request/{id}/reject(id=${request.id})}"
+                          method="post" style="display: inline;">
+                        <button type="submit" class="btn btn-sm btn-danger">Reject</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

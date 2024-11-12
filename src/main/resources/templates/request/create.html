@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Request - User Access Management</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div th:replace="layout/main :: navbar"></div>
+
+<div class="container">
+    <div class="card">
+        <h2>Request Software Access</h2>
+
+        <form th:action="@{/request/create}" method="post" th:object="${request}">
+            <div class="form-group">
+                <label for="softwareId">Software</label>
+                <select th:field="*{softwareId}" class="form-control" required>
+                    <option value="">Select Software</option>
+                    <option th:each="software : ${softwareList}"
+                            th:value="${software.id}"
+                            th:text="${software.name}"></option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="accessType">Access Type</label>
+                <select th:field="*{accessType}" class="form-control" required>
+                    <option value="">Select Access Type</option>
+                    <option value="READ">Read</option>
+                    <option value="WRITE">Write</option>
+                    <option value="ADMIN">Admin</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="reason">Reason for Request</label>
+                <textarea th:field="*{reason}" class="form-control" rows="3" required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit Request</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

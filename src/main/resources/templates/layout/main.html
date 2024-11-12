@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>User Access Management System</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<nav class="navbar">
+    <div class="nav-brand">User Access Management</div>
+    <div class="nav-items">
+        <a th:href="@{/dashboard}">Dashboard</a>
+        <div sec:authorize="hasRole('ADMIN')">
+            <a th:href="@{/software/create}">Create Software</a>
+        </div>
+        <div sec:authorize="hasRole('EMPLOYEE')">
+            <a th:href="@{/request/create}">Request Access</a>
+        </div>
+        <div sec:authorize="hasRole('MANAGER')">
+            <a th:href="@{/request/pending}">Pending Requests</a>
+        </div>
+        <form th:action="@{/logout}" method="post">
+            <button type="submit">Logout</button>
+        </form>
+    </div>
+</nav>
+<main>
+    <div th:replace="${content}">
+        <!-- Content will be inserted here -->
+    </div>
+</main>
+<script th:src="@{/js/scripts.js}"></script>
+</body>
+</html>

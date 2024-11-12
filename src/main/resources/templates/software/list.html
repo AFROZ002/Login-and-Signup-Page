@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/main :: head">
+    <title>Software List - User Access Management</title>
+</head>
+<body>
+<div th:replace="layout/main :: navbar"></div>
+
+<div class="container">
+    <div class="card">
+        <h2>Software List</h2>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Access Levels</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="software : ${softwareList}">
+                <td th:text="${software.name}"></td>
+                <td th:text="${software.description}"></td>
+                <td th:text="${software.accessLevels}"></td>
+                <td>
+                    <a th:href="@{/software/{id}/edit(id=${software.id})}" class="btn btn-sm btn-primary">Edit</a>
+                    <a th:href="@{/software/{id}/delete(id=${software.id})}"
+                       class="btn btn-sm btn-danger btn-delete">Delete</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
